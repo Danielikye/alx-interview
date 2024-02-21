@@ -1,30 +1,31 @@
 #!/usr/bin/python3
-""" A python function used to rotate
-2D Matrix.
+"""implementation  function in Python to rotate the given 2D matrix\
+    90 degrees clockwise in-place.
 """
 
 
 def rotate_2d_matrix(matrix):
-    """A function to rotate 2D matrix in place.
+    """This implementation first transposes the matrix and then\
+        reverses each row to achieve the rotation effect.
     """
-    if type(matrix) != list:
-        return
-    if len(matrix) <= 0:
-        return
-    if not all(map(lambda x: type(x) == list, matrix)):
-        return
-    rows = len(matrix)
-    cols = len(matrix[0])
-    if not all(map(lambda x: len(x) == cols, matrix)):
-        return
-    c, r = 0, rows - 1
-    for i in range(cols * rows):
-        if i % rows == 0:
-            matrix.append([])
-        if r == -1:
-            r = rows - 1
-            c += 1
-        matrix[-1].append(matrix[r][c])
-        if c == cols - 1 and r >= -1:
-            matrix.pop(r)
-        r -= 1
+    n = len(matrix)
+
+    # Transpose the matrix
+    for i in range(n):
+        for j in range(i, n):
+            matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+
+    # Reverse each row
+    for row in matrix:
+        row.reverse()
+
+
+if __name__ == "__main__":
+    matrix = [
+        [1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9]
+    ]
+
+    rotate_2d_matrix(matrix)
+    print(matrix)1
